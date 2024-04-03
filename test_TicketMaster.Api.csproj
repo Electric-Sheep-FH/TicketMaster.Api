@@ -10,6 +10,7 @@
     <PackageReference Include="FastApi" Version="1.0.24" />
     <PackageReference Include="FastEndpoints" Version="5.23.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 

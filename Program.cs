@@ -1,6 +1,7 @@
 using FastEndpoints;
 using System.Data.SqlClient;
 using test_TicketMaster.Api.Database;
+using test_TicketMaster.Api.Model;
 
 namespace test_TicketMaster.Api
 {
@@ -15,6 +16,7 @@ namespace test_TicketMaster.Api
             app.UseFastEndpoints();
 
             //SeedDB.FeedDB();
+            Person.DeleteByIdRole(2);
             app.Run();
         }
     }

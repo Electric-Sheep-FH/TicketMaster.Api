@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using test_TicketMaster.Api.Database;
-using test_TicketMaster.Api.Endpoints;
 
 namespace test_TicketMaster.Api.Model
 {
-    public class Customer : Person
+    public class Users : Person
     {
-        public static void CreateCustomer(string firstname, string lastname, DateOnly birthday, string adress, int postalCode, string city, string localPhone, string portablePhone, string mail, string password, int idCountry)
+        public static void CreateTechnician(string firstname, string lastname, DateOnly birthday, string adress, int postalCode, string city, string localPhone, string portablePhone, string mail, string password, int idCountry)
         {
-            int userId = CreatePerson(firstname,lastname,birthday,adress,postalCode,city,localPhone,portablePhone,mail,password,idCountry,3);
+            int userId = CreatePerson(firstname, lastname, birthday, adress, postalCode, city, localPhone, portablePhone, mail, password, idCountry, 1);
 
             if (userId != -1)
             {
@@ -22,39 +21,42 @@ namespace test_TicketMaster.Api.Model
                 {
                     connection = Connection.GetInstance();
 
-                    string query2 = @"INSERT INTO Client (ID_Personne) VALUES (@PersonId)";
+                    string query2 = @"INSERT INTO Utilisateur (ID_Personne, ID_statut) VALUES (@PersonId, @StatusID)";
 
                     using (var command = new SqlCommand(query2, connection))
                     {
                         command.Parameters.AddWithValue("@PersonId", userId);
+                        command.Parameters.AddWithValue("@StatusID", 1);
+
 
                         int rowsAffected = command.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
                         {
-                            Console.WriteLine("Customer added successfully.");
+                            Console.WriteLine("Technician added successfully.");
                         }
                         else
                         {
-                            Console.WriteLine("Failed to add Customer.");
+                            Console.WriteLine("Failed to add Technician.");
                         }
                     }
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine("SQL Exception while creating Customer: {0}", sqlEx.Message);
+                    Console.WriteLine("SQL Exception while creating Technician: {0}", sqlEx.Message);
                     throw;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Unexpected error while creating Customer: {0}", ex.Message);
+                    Console.WriteLine("Unexpected error while creating Technician: {0}", ex.Message);
                     throw;
                 }
             }
             else
             {
-                Console.WriteLine("Failed to create Customer. Person ID is invalid.");
+                Console.WriteLine("Failed to create Technician. Person ID is invalid.");
             }
+
         }
     }
 }
